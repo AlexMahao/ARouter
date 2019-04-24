@@ -34,11 +34,14 @@ public class AutowiredServiceImpl implements AutowiredService {
     public void autowire(Object instance) {
         String className = instance.getClass().getName();
         try {
+            // 判断是否是黑名单
             if (!blackList.contains(className)) {
                 ISyringe autowiredHelper = classCache.get(className);
                 if (null == autowiredHelper) {  // No cache.
+                    // 构造注入的helper
                     autowiredHelper = (ISyringe) Class.forName(instance.getClass().getName() + SUFFIX_AUTOWIRED).getConstructor().newInstance();
                 }
+                // 注入代码
                 autowiredHelper.inject(instance);
                 classCache.put(className, autowiredHelper);
             }

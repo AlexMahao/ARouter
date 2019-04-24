@@ -79,6 +79,7 @@ public class InterceptorServiceImpl implements InterceptorService {
                 public void onContinue(Postcard postcard) {
                     // Last interceptor excute over with no exception.
                     counter.countDown();
+                    // 下一个拦截
                     _excute(index + 1, counter, postcard);  // When counter is down, it will be execute continue ,but index bigger than interceptors size, then U know.
                 }
 

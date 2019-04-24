@@ -59,11 +59,11 @@ final class _ARouter {
 
     protected static synchronized boolean init(Application application) {
         mContext = application;
+        // Logistics 后勤中心
         LogisticsCenter.init(mContext, executor);
         logger.info(Consts.TAG, "ARouter init success!");
         hasInit = true;
         mHandler = new Handler(Looper.getMainLooper());
-
         return true;
     }
 
@@ -180,6 +180,7 @@ final class _ARouter {
         if (TextUtils.isEmpty(path)) {
             throw new HandlerException(Consts.TAG + "Parameter is invalid!");
         } else {
+            // 获取PathReplaceService实例，如果不为null,处理一下path
             PathReplaceService pService = ARouter.getInstance().navigation(PathReplaceService.class);
             if (null != pService) {
                 path = pService.forString(path);
@@ -222,6 +223,7 @@ final class _ARouter {
      * Extract the default group from path.
      */
     private String extractGroup(String path) {
+        // 跳转路径的第一段作为分组名
         if (TextUtils.isEmpty(path) || !path.startsWith("/")) {
             throw new HandlerException(Consts.TAG + "Extract the default group failed, the path must be start with '/' and contain more than 2 '/'!");
         }
@@ -277,6 +279,7 @@ final class _ARouter {
      */
     protected Object navigation(final Context context, final Postcard postcard, final int requestCode, final NavigationCallback callback) {
         try {
+            // 根据地址信息匹配出跳转信息
             LogisticsCenter.completion(postcard);
         } catch (NoRouteFoundException ex) {
             logger.warning(Consts.TAG, ex.getMessage());
@@ -308,7 +311,7 @@ final class _ARouter {
         if (null != callback) {
             callback.onFound(postcard);
         }
-
+        // 如果不是绿色通多，拦截器做拦截
         if (!postcard.isGreenChannel()) {   // It must be run in async thread, maybe interceptor cost too mush time made ANR.
             interceptorService.doInterceptions(postcard, new InterceptorCallback() {
                 /**
@@ -347,6 +350,7 @@ final class _ARouter {
 
         switch (postcard.getType()) {
             case ACTIVITY:
+                // 执行activity跳转
                 // Build intent
                 final Intent intent = new Intent(currentContext, postcard.getDestination());
                 intent.putExtras(postcard.getExtras());
@@ -416,6 +420,7 @@ final class _ARouter {
 
     /**
      * Start activity
+     *
      * @see ActivityCompat
      */
     private void startActivity(int requestCode, Context currentContext, Intent intent, Postcard postcard, NavigationCallback callback) {

@@ -38,9 +38,11 @@ public final class ARouter {
         if (!hasInit) {
             logger = _ARouter.logger;
             _ARouter.logger.info(Consts.TAG, "ARouter init start.");
+            // 初始化操作
             hasInit = _ARouter.init(application);
 
             if (hasInit) {
+                // 初始化拦截器
                 _ARouter.afterInit();
             }
 

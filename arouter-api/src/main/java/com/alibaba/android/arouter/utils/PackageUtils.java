@@ -21,6 +21,11 @@ public class PackageUtils {
     private static String NEW_VERSION_NAME;
     private static int NEW_VERSION_CODE;
 
+    /**
+     * 判断当前存储的路由表是否是新版本
+     * @param context
+     * @return
+     */
     public static boolean isNewVersion(Context context) {
         PackageInfo packageInfo = getPackageInfo(context);
         if (null != packageInfo) {

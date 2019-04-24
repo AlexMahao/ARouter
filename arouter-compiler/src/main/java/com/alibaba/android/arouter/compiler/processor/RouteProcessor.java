@@ -84,9 +84,10 @@ public class RouteProcessor extends BaseProcessor {
     @Override
     public synchronized void init(ProcessingEnvironment processingEnv) {
         super.init(processingEnv);
-
+        // 判断是否需要生成文档，以json的形式生成路由文档
         if (generateDoc) {
             try {
+                // ARouter/app/build/generated/source/apt/debug/com/alibaba/android/arouter/docs
                 docWriter = mFiler.createResource(
                         StandardLocation.SOURCE_OUTPUT,
                         PACKAGE_OF_GENERATE_DOCS,
