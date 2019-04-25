@@ -8,10 +8,10 @@
 
 [ARouter源码分析（一）—— 路由跳转分析](https://mahao.blog.csdn.net/article/details/89493063)
 
+[ARouter源码分析（二）—— 拦截器源码分析](https://mahao.blog.csdn.net/article/details/89513229)
 
 ### TODO 
 
-- 拦截器分析
 - Providers分析
 - 服务降级分析
 - 分级加载分析
