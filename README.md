@@ -12,7 +12,9 @@
 
 [ARouter源码分析（三）—— Provider源码分析](https://blog.csdn.net/lisdye2/article/details/89515474)
 
+[ARouter源码分析（四）—— 缓存与优化](https://blog.csdn.net/lisdye2/article/details/89517313)
+
 ### TODO 
 - ~~服务降级分析 (就是一个全局回调处理，感觉没有必要分析...)~~
-- 分级加载分析
+- 参数注入分析
 
