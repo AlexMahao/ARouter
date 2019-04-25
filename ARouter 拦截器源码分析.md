@@ -1,5 +1,7 @@
 ## ARouter 拦截器源码分析
 
+> `Arouter`源码分析系列文章，请访问[https://github.com/AlexMahao/ARouter](https://github.com/AlexMahao/ARouter)
+
 在分析路由跳转时，最终的跳转会判断是否是绿色通道，如果不是，将会走拦截器相关的逻辑。
 
 ```java

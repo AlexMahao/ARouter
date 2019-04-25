@@ -1,6 +1,6 @@
 ## 路由跳转分析
 
-> 相关工程github[https://github.com/AlexMahao/ARouter](https://github.com/AlexMahao/ARouter)
+> `Arouter`源码分析系列文章，请访问[https://github.com/AlexMahao/ARouter](https://github.com/AlexMahao/ARouter)
 
 ### 逻辑分析
 
