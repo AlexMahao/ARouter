@@ -241,11 +241,14 @@ public class LogisticsCenter {
         if (null == postcard) {
             throw new NoRouteFoundException(TAG + "No postcard!");
         }
-
+        // 获取路由地址对应的信息
         RouteMeta routeMeta = Warehouse.routes.get(postcard.getPath());
+        // 如果为null可能是由于对应组别的路由清单没有加载
         if (null == routeMeta) {    // Maybe its does't exist, or didn't load.
+            // 查询对应组的路由清单
             Class<? extends IRouteGroup> groupMeta = Warehouse.groupsIndex.get(postcard.getGroup());  // Load route meta.
             if (null == groupMeta) {
+                // 如果不存在，则说明当前路径不存在
                 throw new NoRouteFoundException(TAG + "There is no route match the path [" + postcard.getPath() + "], in group [" + postcard.getGroup() + "]");
             } else {
                 // Load route and cache it into memory, then delete from metas.
@@ -253,9 +256,10 @@ public class LogisticsCenter {
                     if (ARouter.debuggable()) {
                         logger.debug(TAG, String.format(Locale.getDefault(), "The group [%s] starts loading, trigger by [%s]", postcard.getGroup(), postcard.getPath()));
                     }
-
+                    // 加载分组的路由清单
                     IRouteGroup iGroupInstance = groupMeta.getConstructor().newInstance();
                     iGroupInstance.loadInto(Warehouse.routes);
+                    // 已加载的路由清单，将其从根节点移除
                     Warehouse.groupsIndex.remove(postcard.getGroup());
 
                     if (ARouter.debuggable()) {
@@ -264,7 +268,7 @@ public class LogisticsCenter {
                 } catch (Exception e) {
                     throw new HandlerException(TAG + "Fatal exception when loading group meta. [" + e.getMessage() + "]");
                 }
-
+                // 重新查询
                 completion(postcard);   // Reload
             }
         } else {
