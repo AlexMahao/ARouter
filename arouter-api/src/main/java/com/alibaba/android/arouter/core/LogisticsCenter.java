@@ -303,15 +303,20 @@ public class LogisticsCenter {
                     if (null == instance) { // There's no instance of this provider
                         IProvider provider;
                         try {
+                            // 构造provider对象
                             provider = providerMeta.getConstructor().newInstance();
+                            // 调用实例化对象的init
                             provider.init(mContext);
+                            // 保存到warehose中
                             Warehouse.providers.put(providerMeta, provider);
                             instance = provider;
                         } catch (Exception e) {
                             throw new HandlerException("Init provider failed! " + e.getMessage());
                         }
                     }
+                    // 保存实力对象
                     postcard.setProvider(instance);
+                    // 声明为绿色通道，不走拦截器逻辑
                     postcard.greenChannel();    // Provider should skip all of interceptors
                     break;
                 case FRAGMENT:
